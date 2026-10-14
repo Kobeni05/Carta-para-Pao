@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff5f6">
+  <title>Hice esto para ti ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root{--vino:#900d36;--rosa:#f6cbd4;--tinta:#5d3d48}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at center,#fffdfb 0%,#fff7f7 55%,#f9e8ee 100%);color:var(--vino);font-family:'Cormorant Garamond',Georgia,serif}
+    .borde{position:fixed;inset:0;pointer-events:none;border:clamp(5px,1.6vw,15px) solid #8e0844;border-radius:clamp(25px,6vw,65px);z-index:20;opacity:.97}
+    .ambiente{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+    .petalo{position:absolute;top:-12%;left:var(--x);width:var(--tam);height:calc(var(--tam)*.7);border-radius:85% 5% 85% 5%;background:linear-gradient(135deg,#ffc0d0,#ee7d9d 65%,#ffdce5);opacity:var(--op);filter:blur(var(--blur));animation:caer var(--dur) linear infinite;animation-delay:var(--delay)}
+    @keyframes caer{0%{transform:translate3d(0,-10vh,0) rotate(0deg)}50%{transform:translate3d(45px,55vh,0) rotate(210deg)}100%{transform:translate3d(-40px,120vh,0) rotate(460deg)}}
+    main{min-height:100svh;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:54px 20px 60px;text-align:center;gap:clamp(15px,4vh,45px)}
+    h1{font-family:'Great Vibes','Brush Script MT',cursive;font-weight:400;font-size:clamp(64px,10vw,116px);line-height:1.15;margin:0;text-shadow:0 2px 15px #e9bcc880}
+    .ornamento{display:flex;gap:20px;align-items:center;justify-content:center;font-size:15px;color:#b62854;margin-top:-12px}
+    .ornamento span{height:1px;width:90px;background:#dca3b4}
+    .sobre-boton{width:min(520px,78vw);aspect-ratio:1.58;border:0;background:transparent;position:relative;cursor:pointer;padding:0;filter:drop-shadow(0 24px 22px #ba859a45);transition:transform .35s ease;isolation:isolate}
+    .sobre-boton:hover{transform:translateY(-7px) scale(1.025)}
+    .sobre-boton:focus-visible,.cerrar:focus-visible{outline:3px solid var(--vino);outline-offset:6px}
+    .sobre{position:absolute;inset:0;background:linear-gradient(135deg,#fff3f5,#f0c0cc);border-radius:3px;overflow:hidden}
+    .sobre:before{content:"";position:absolute;inset:0;background:#f5c6d1;clip-path:polygon(0 0,50% 54%,0 100%);z-index:2}
+    .sobre:after{content:"";position:absolute;inset:0;background:#f2c1cd;clip-path:polygon(100% 0,50% 54%,100% 100%);z-index:2}
+    .solapa{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 55%);background:linear-gradient(#fff7f8,#f5d2d9);z-index:4;transform-origin:top center;transition:transform .7s ease}
+    .sobre-frente{position:absolute;inset:0;background:linear-gradient(0deg,#f5c4cf,#f9dfe4);clip-path:polygon(0 100%,50% 49%,100% 100%);z-index:3}
+    .sello{position:absolute;z-index:5;top:50%;left:50%;width:clamp(62px,9vw,91px);height:clamp(80px,12vw,115px);transform:translate(-50%,-46%);filter:drop-shadow(0 3px 2px #6d153540);pointer-events:none;transition:transform .5s,opacity .5s}
+    .sello svg{height:100%;width:100%;image-rendering:pixelated}
+    .sobre-boton.abriendo .solapa{transform:rotateX(175deg);z-index:1}
+    .sobre-boton.abriendo .sello{transform:translate(-50%,-135%) scale(.7);opacity:0}
+    .indicacion{font-size:clamp(19px,2.7vw,28px);color:#9f7181;font-style:italic;margin:0}
+    .overlay{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:22px;background:#fff8f8ad;backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+    .overlay.visible{opacity:1;visibility:visible}
+    .carta{width:min(530px,100%);max-height:86svh;min-height:min(580px,72svh);overflow:auto;background:#fffefc;box-shadow:0 22px 65px #80506435;padding:60px clamp(30px,6vw,60px) 38px;position:relative;display:block;transform:translateY(30px) scale(.94);transition:transform .55s;border:1px solid #f6eaeb;text-align:left}
+    .overlay.visible .carta{transform:translateY(0) scale(1)}
+    .carta h2{font-family:'Great Vibes','Brush Script MT',cursive;text-align:center;color:var(--vino);font-weight:400;font-size:clamp(54px,9vw,70px);line-height:1.2;margin:0 0 20px}
+    .mensaje{min-height:0;display:block;font-size:clamp(21px,3vw,26px);line-height:1.5;color:var(--tinta);white-space:pre-wrap}
+    .firma{display:block;clear:both;text-align:right;font-family:'Great Vibes','Brush Script MT',cursive;font-size:clamp(42px,7vw,56px);margin:20px 0 0;color:#c71938}
+    .cerrar{position:absolute;top:17px;right:17px;width:34px;height:34px;border:1px solid #d9bdc4;border-radius:50%;background:white;color:#9b6e7a;font-size:22px;cursor:pointer;line-height:1}
+    @media(max-width:600px){main{gap:30px}h1{font-size:clamp(57px,13vw,84px)}.sobre-boton{width:min(390px,84vw)}.carta{min-height:65svh;padding-top:65px}.mensaje{min-height:0}}
+    @media(prefers-reduced-motion:reduce){.petalo{animation:none}*,*:before,*:after{transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="borde" aria-hidden="true"></div>
+  <div class="ambiente" id="ambiente" aria-hidden="true"></div>
+  <main>
+    <div><h1>hice esto para ti</h1><div class="ornamento" aria-hidden="true"><span></span>✦<span></span></div></div>
+    <button id="abrir" class="sobre-boton" type="button" aria-label="Abrir carta para Paola">
+      <div class="sobre"><div class="sobre-frente"></div><div class="solapa"></div></div>
+      <div class="sello" aria-hidden="true">
+        <!-- Flor roja pixelada, integrada en el HTML: no requiere imagen externa -->
+        <svg viewBox="0 0 13 17" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <path fill="#313b37" d="M5 0h3v1h2v2h2v5h-2v1H8v7H3v-2H1v-3h3v2h1V9H3V8H1V6H0V3h2V2h3z"/>
+          <path fill="#e7192b" d="M5 1h3v1h2v2h1v3H9v1H3V7H1V4h2V3h2z"/>
+          <path fill="#fa3143" d="M2 5h2v2H2zM6 1h2v2H6z"/>
+          <path fill="#b70d20" d="M5 3h3v3H5zM9 4h2v3H9z"/>
+          <path fill="#7b0815" d="M5 4h2v2H5z"/>
+          <path fill="#11813e" d="M5 8h2v6h1v1h2v-2h2v2h-1v1H4v-1H2v-2h2v1h1z"/>
+          <path fill="#0b592b" d="M6 9h1v7H6zM9 14h2v1H9z"/>
+        </svg>
+      </div>
+    </button>
+    <p class="indicacion">Toca el sobre para abrir</p>
+  </main>
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="tituloCarta" aria-hidden="true">
+    <article class="carta">
+      <button class="cerrar" id="cerrar" type="button" aria-label="Cerrar carta">×</button>
+      <h2 id="tituloCarta">Para Paola</h2>
+      <div class="mensaje" id="mensaje"></div>
+      <p class="firma">De Esteban</p>
+    </article>
+  </div>
+  <script>
+    // PERSONALIZA TU CARTA: escribe tu texto entre las comillas invertidas.
+    const mensajeParaPaola = `Holaaa, la verdad no sé muy bien cómo empezar esto, JAJAJA, pero hay algo que quería decirte desde hace tiempo y quería hacerlo de una manera un poquito diferente.
+
+Cuando recuerdo nuestra época de la primaria, me vienen muy buenos recuerdos de cuando éramos mejores amigos. Siempre me divertía mucho hablando contigo y me gustaba mucho tu forma de ser. Y ahora que después de tanto tiempo volvimos a hablar, la verdad es que he disfrutado muchísimo las veces que hemos hablado y jugado juntos. Así que escribí esto porque quiero ser sincero contigo, la vdd me interesas, y creo que he sido un poquito obvio JAJAJA. Aunque soy malo sacando temas de conversación, realmente disfruto hablar contigo, saber cómo te fue en tu día, lo que hiciste, que comiste, etc.
+
+A pesar de que nos conocemos desde pequeños, siento que ahora somos desconocidos porque han pasado muchos años y ambos hemos cambiado.
+
+Y justamente por eso me gustaría conocerte más. Quiero saber cuál es tu color favorito, tu canción favorita, qué cosas te hacen feliz, qué te gusta hacer y todos esos pequeños detalles que te hacen ser tú.
+
+No quiero apresurarme a decirte que me gustas cuando todavía hay tantas cosas de ti que no conozco, pero sí puedo decirte que me llamas mucho la atención y que me gustaría descubrir más de la persona que eres hoy.
+
+Sé que a veces dejas de responderme y termino siendo yo quien vuelve a iniciar la conversación, JAJAJA. No te lo digo como un reclamo, simplemente quiero que sepas que mi interés por ti es sincero y que no me molesta tomar la iniciativa. Aunque también entiendo que el interés debe ser mutuo, y si tú no sientes lo mismo, prefiero que me lo digas con sinceridad. Lo voy a entender y respetar.
+
+No sé qué pueda pasar más adelante, pero me gustaría seguir conociéndote, compartir más momentos contigo y dejar que las cosas sucedan naturalmente, sin prisas ni presiones y si es que quieres, claro.
+
+en fin era todo lo que queria decirte`;
+    document.getElementById('mensaje').textContent = mensajeParaPaola.trim();
+
+    const ambiente = document.getElementById('ambiente');
+    for(let i=0;i<22;i++){
+      const p=document.createElement('span');p.className='petalo';
+      const rand=(min,max)=>min+Math.random()*(max-min);
+      p.style.setProperty('--x',rand(0,100)+'%');
+      p.style.setProperty('--tam',rand(9,26)+'px');
+      p.style.setProperty('--op',rand(.25,.7));
+      p.style.setProperty('--blur',rand(0,2)+'px');
+      p.style.setProperty('--dur',rand(13,25)+'s');
+      p.style.setProperty('--delay',-rand(0,25)+'s');
+      ambiente.appendChild(p);
+    }
+    const abrir=document.getElementById('abrir');
+    const overlay=document.getElementById('overlay');
+    const cerrar=document.getElementById('cerrar');
+    let espera;
+    abrir.addEventListener('click',()=>{
+      clearTimeout(espera);abrir.classList.add('abriendo');
+      espera=setTimeout(()=>{overlay.classList.add('visible');overlay.setAttribute('aria-hidden','false');cerrar.focus()},460);
+    });
+    function cerrarCarta(){clearTimeout(espera);overlay.classList.remove('visible');overlay.setAttribute('aria-hidden','true');abrir.classList.remove('abriendo');abrir.focus()}
+    cerrar.addEventListener('click',cerrarCarta);
+    overlay.addEventListener('click',e=>{if(e.target===overlay)cerrarCarta()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('visible'))cerrarCarta()});
+  </script>
+</body>
+</html>
